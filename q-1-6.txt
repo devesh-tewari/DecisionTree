@@ -1,0 +1,13 @@
+*** Part 6: Handling missing values(attributes missing in test samples) in data ***
+
+
+The decision tree cannot directly handle test samples that have missing attributes.
+
+The basic approach during classification is to use the decisions at nodes wherever possible i.e. when the test sample has a feature that is not missing. But when the test sample is missing a attribute, use alternate queries. During training, in addition to primary split, each non leaf node is given an ordered set of surrogate splits, having an atrribute label and a rule. A simple measure of prediction is of two splits s1 and s2, is the count of patterns that are sent to the left by both s1 and s2 plus the count of patterns sent to right by both s1 and s2. The second surrogate split is defined as the one that uses another feature and best approximates the primary split in this way. Now during classification we use the first surrogate split that does not involve the test's row missing attributes. This strategy uses to maximum advantage, the association among attributes to decide the split when attributes values are missing.
+
+A simple method to handle missing attributes is to use simple probability. Whenever a test sample has a missing attribute, go to all its children and count the number of labels in each leaf encountered. This count can be stored in the node itself. Then predict the label which has maximum count.
+
+Another method closely related to surrogate splits is that of virtual values, in which the missing attribute is assigned its most likely value.
+
+Sometimes the fact that we have a missing attribute can even be informative. e.g. in medical diagnosis, the fact that an attribute is missing might imply that physisian had some reason that he did not measure it. As such a missing attribute could be represented as a new feature and could be used in classification.
+
